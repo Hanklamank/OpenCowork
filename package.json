@@ -1,0 +1,42 @@
+{
+  "name": "opencowork",
+  "version": "0.1.0",
+  "description": "Multi-LLM Agent System with native CLI integration",
+  "main": "src/index.js",
+  "type": "module",
+  "scripts": {
+    "start": "node src/index.js",
+    "dev": "node --watch src/index.js",
+    "test": "node test/test.js"
+  },
+  "bin": {
+    "opencowork": "./src/cli.js"
+  },
+  "keywords": [
+    "ai",
+    "llm",
+    "agent",
+    "cli",
+    "automation",
+    "claude",
+    "codex",
+    "gemini",
+    "mistral",
+    "ollama"
+  ],
+  "author": "Nick Wolf",
+  "license": "MIT",
+  "dependencies": {
+    "commander": "^12.0.0",
+    "chalk": "^5.3.0",
+    "ora": "^8.0.1",
+    "enquirer": "^2.4.1"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Hanklamank/OpenCowork.git"
+  }
+}

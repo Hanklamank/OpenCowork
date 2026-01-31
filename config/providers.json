@@ -1,0 +1,69 @@
+{
+  "providers": {
+    "claude-code": {
+      "name": "claude-code",
+      "cli": "claude-code",
+      "args": ["--interactive"],
+      "models": ["claude-3.5-sonnet", "claude-3-opus"],
+      "timeout": 30000,
+      "capabilities": ["file-ops", "web-search", "code-execution"]
+    },
+    "ollama": {
+      "name": "ollama", 
+      "cli": "ollama",
+      "args": ["run"],
+      "models": ["llama3:latest", "llama3:70b", "codellama", "mistral"],
+      "timeout": 60000,
+      "capabilities": ["local-inference", "offline"]
+    },
+    "openai": {
+      "name": "openai",
+      "cli": "openai",
+      "args": ["api", "chat", "completions"],
+      "models": ["gpt-4", "gpt-4-turbo", "gpt-5.2-codex"],
+      "timeout": 45000,
+      "capabilities": ["web-access", "code-interpreter"]
+    },
+    "gemini": {
+      "name": "gemini",
+      "cli": "gcloud",
+      "args": ["ai", "models", "predict"],
+      "models": ["gemini-pro", "gemini-ultra"],
+      "timeout": 40000,
+      "capabilities": ["multimodal", "web-access"]
+    },
+    "mistral": {
+      "name": "mistral",
+      "cli": "mistral-cli",
+      "args": ["--interactive"],
+      "models": ["mistral-large", "mistral-medium"],
+      "timeout": 35000,
+      "capabilities": ["european-hosted", "fast-inference"]
+    }
+  },
+  "defaults": {
+    "provider": "claude-code",
+    "timeout": 30000,
+    "retryAttempts": 2,
+    "workingDirectory": ".",
+    "logLevel": "info"
+  },
+  "task_types": {
+    "file_analysis": {
+      "recommended_providers": ["claude-code", "openai"],
+      "timeout": 60000
+    },
+    "code_generation": {
+      "recommended_providers": ["openai", "claude-code", "codellama"],
+      "timeout": 120000
+    },
+    "research": {
+      "recommended_providers": ["gemini", "claude-code"],
+      "timeout": 180000
+    },
+    "local_tasks": {
+      "recommended_providers": ["ollama", "mistral"],
+      "timeout": 90000
+    }
+  }
+}
