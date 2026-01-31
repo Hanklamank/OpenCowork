@@ -120,6 +120,49 @@ program
   });
 
 program
+  .command('web')
+  .description('Start web GUI server')
+  .option('-p, --port <port>', 'Port to run on', '3000')
+  .option('--host <host>', 'Host to bind to', 'localhost')
+  .action(async (options) => {
+    console.log(chalk.blue('🌐 Starting OpenCowork Web GUI...'));
+    
+    try {
+      // Import and start web server
+      const { spawn } = await import('child_process');
+      const webServer = spawn('node', ['web/server.js'], {
+        stdio: 'inherit',
+        env: { 
+          ...process.env, 
+          PORT: options.port,
+          HOST: options.host 
+        }
+      });
+
+      console.log(chalk.green(`✅ Web GUI started on http://${options.host}:${options.port}`));
+      
+      webServer.on('error', (error) => {
+        console.error(chalk.red('❌ Failed to start web server:'), error.message);
+      });
+
+      webServer.on('close', (code) => {
+        console.log(chalk.blue(`🛑 Web server stopped with code ${code}`));
+      });
+
+      // Handle graceful shutdown
+      process.on('SIGINT', () => {
+        console.log(chalk.blue('\n🛑 Shutting down web server...'));
+        webServer.kill('SIGTERM');
+        process.exit(0);
+      });
+
+    } catch (error) {
+      console.error(chalk.red('❌ Error:'), error.message);
+      process.exit(1);
+    }
+  });
+
+program
   .command('interactive')
   .description('Start interactive mode')
   .option('--llm <provider>', 'Default LLM provider')

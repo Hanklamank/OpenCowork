@@ -7,6 +7,7 @@
 🤖 **Multi-LLM Support** - Claude Code, Codex, Gemini, Mistral, Ollama  
 ⚡ **Direct CLI Integration** - Native process spawning (no API limitations)  
 🎯 **Agent-Driven Tasks** - Complex multi-step execution  
+🌐 **Modern Web GUI** - Claude Cowork-inspired interface  
 📁 **File System Integration** - Real file operations  
 🔧 **Cross-Platform** - macOS, Windows, Linux  
 
@@ -16,11 +17,17 @@
 npm install
 npm start
 
-# Interactive mode
-opencowork --llm claude-code "Analyze this project and create a summary"
+# Web GUI (Claude Cowork-like interface)
+opencowork web --port 3000
 
-# Background task
-opencowork --llm ollama --model llama3 "Organize my downloads folder"
+# CLI mode - Interactive
+opencowork interactive --llm claude-code
+
+# CLI mode - Direct execution  
+opencowork exec --llm ollama "Organize my downloads folder"
+
+# CLI mode - Background task
+opencowork --llm claude-code "Analyze this project and create a summary"
 ```
 
 ## Architecture
@@ -30,8 +37,10 @@ OpenCowork/
 ├── src/
 │   ├── core/           # Agent engine & orchestration
 │   ├── providers/      # LLM CLI wrappers
-│   ├── tools/          # File, browser, system tools
-│   └── ui/             # CLI interface
+│   └── tools/          # File, browser, system tools
+├── web/                # Web GUI (Claude Cowork-like)
+│   ├── server.js       # Express + WebSocket server
+│   └── public/         # Frontend (HTML/CSS/JS)
 ├── config/             # LLM configurations
 └── examples/           # Usage examples
 ```
