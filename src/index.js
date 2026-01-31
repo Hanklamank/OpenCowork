@@ -8,6 +8,7 @@ export { LLMProvider } from './core/llm-provider.js';
 // Export providers
 export { ClaudeCodeProvider } from './providers/claude-code.js';
 export { OllamaProvider } from './providers/ollama.js';
+export { MockProvider } from './providers/mock.js';
 
 /**
  * OpenCowork - Multi-LLM Agent System

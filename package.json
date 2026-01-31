@@ -5,9 +5,13 @@
   "main": "src/index.js",
   "type": "module",
   "scripts": {
-    "start": "node src/index.js",
+    "start": "node src/cli.js",
     "dev": "node --watch src/index.js",
-    "test": "node test/test.js"
+    "test": "node test/test.js",
+    "web": "node web/server.js",
+    "web:dev": "node --watch web/server.js",
+    "setup": "chmod +x scripts/install-providers.sh && ./scripts/install-providers.sh",
+    "providers": "node src/cli.js providers"
   },
   "bin": {
     "opencowork": "./src/cli.js"

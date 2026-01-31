@@ -32,9 +32,31 @@ async function initializeOpenCowork() {
     opencowork = new OpenCowork();
     await opencowork.initialize();
     console.log('✅ OpenCowork initialized');
-    console.log('Available providers:', opencowork.getAvailableProviders());
+    
+    const providers = opencowork.getAvailableProviders();
+    console.log('Available providers:', providers);
+    
+    // Auto-select first available provider
+    if (providers.length > 0) {
+      await opencowork.setProvider(providers[0]);
+      console.log(`🎯 Auto-selected provider: ${providers[0]}`);
+    }
+    
   } catch (error) {
     console.error('❌ Failed to initialize OpenCowork:', error.message);
+    // Don't crash - create a fallback mock system
+    opencowork = {
+      getAvailableProviders: () => ['mock'],
+      setProvider: () => Promise.resolve(),
+      execute: async (task) => ({
+        status: 'completed',
+        summary: `Demo mode: Task "${task}" would be executed here. Install real LLM providers for full functionality.`,
+        steps: [{ id: 1, description: 'Demo execution', status: 'completed' }],
+        startTime: new Date().toISOString(),
+        endTime: new Date().toISOString()
+      })
+    };
+    console.log('🎭 Running in demo mode with mock responses');
   }
 }
 

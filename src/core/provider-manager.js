@@ -1,5 +1,6 @@
 import { ClaudeCodeProvider } from '../providers/claude-code.js';
 import { OllamaProvider } from '../providers/ollama.js';
+import { MockProvider } from '../providers/mock.js';
 import { LLMProvider } from './llm-provider.js';
 
 /**
@@ -43,10 +44,16 @@ export class ProviderManager {
       console.log('⚠️  Google Cloud CLI detected but Gemini provider not implemented yet');
     }
 
+    // Always register Mock provider for testing/demo
+    this.registerProvider('mock', MockProvider);
+    console.log('🎭 Mock Provider available (demo/testing)');
+
     console.log(`📊 Total providers available: ${this.providers.size}`);
     
-    if (this.providers.size === 0) {
-      throw new Error('No LLM providers found! Install claude-code, ollama, or other supported CLIs.');
+    if (this.providers.size === 1 && this.providers.has('mock')) {
+      console.log('⚠️  Only Mock provider available. Install real LLM providers for full functionality:');
+      console.log('   • Ollama: curl -fsSL https://ollama.com/install.sh | sh');
+      console.log('   • Claude Code: npm install -g @anthropic-ai/claude-code');
     }
   }
 
